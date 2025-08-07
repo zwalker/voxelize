@@ -120,7 +120,15 @@ impl BlockRotation {
                     node[0] += 1.0;
                 }
             }
-            BlockRotation::PY(rot) => {}
+            BlockRotation::PY(rot) => {
+                if y_rotate && (*rot).abs() > f32::EPSILON {
+                    node[0] -= 0.5;
+                    node[2] -= 0.5;
+                    self.rotate_y(node, *rot);
+                    node[0] += 0.5;
+                    node[2] += 0.5;
+                }
+            }
             BlockRotation::NY(rot) => {
                 if y_rotate && (*rot).abs() > f32::EPSILON {
                     node[0] -= 0.5;
